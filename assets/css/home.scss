@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Georama', sans-serif;
+}
+
+body {
+    min-height: 300vh;
+    background-color: #fff;
+}
+$main-color: #2b59b2;
+
+
+/* Class sửa đổi từ Bootstrap */
+@keyframes fadeInDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(80px);
+    }
+}
+.carousel-item {
+    transition: transform 0.4s ease-in-out;
+}
+.carousel-caption {
+    padding-bottom: 12rem;
+    > h3 {
+        font-size: 3rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    > p {
+        font-size: 25px; font-weight: 300;
+    }
+    > .mouse-icon {
+        img {
+            max-width: 32px;
+            max-height: 32px;   
+            animation: fadeInDown ease 3s;
+            animation-iteration-count: infinite;
+        }
+    }
+}
+.btn-primary {
+    background-color: $main-color;
+}
+.btn-primary:hover {
+    background-color: $main-color;
+    border-color: $main-color;
+}
+.btn-outline-primary {
+    color: $main-color;
+    border-color: $main-color;
+  }
+.btn-outline-primary:hover {
+    background-color: $main-color;
+    border-color: $main-color;
+}
+
+/* Class dùng chung */ 
+@for $i from 0 to 101 {
+    .m-#{$i} {
+        margin: #{$i}px;
+    }
+    .mt-#{$i} {
+        margin-top: #{$i}px;
+    }
+    .mb-#{$i} {
+        margin-bottom: #{$i}px;
+    }
+    .ms-#{$i} {
+        margin-left: #{$i}px;
+    }
+    .me-#{$i} {
+        margin-right: #{$i}px;
+    }
+}
+@for $i from 0 to 101 {
+    .p-#{$i} {
+        padding: #{$i}px;
+    }
+    .pt-#{$i} {
+        padding-top: #{$i}px;
+    }
+    .pb-#{$i} {
+        padding-bottom: #{$i}px;
+    }
+    .ps-#{$i} {
+        padding-left: #{$i}px;
+    }
+    .pe-#{$i} {
+        padding-right: #{$i}px;
+    }
+}
+
+
+/* Header */
+header {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: .25s;
+    padding: 10px 40px;
+    color: #fff;
+    .logo {
+        font-size: 2em;
+        font-weight: 700;
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+    ul {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        margin: 0;
+        li {
+            list-style: none;
+            a {
+                margin: 0px 10px;
+                font-weight: 500;
+                text-decoration: none;
+                color: #fff;
+                line-height: 48px;
+                transition: .25s;
+            }
+            a:hover {
+            text-decoration-color: $main-color;
+            text-decoration-line: underline;
+            }
+        }
+    }
+    button#navbar--menu {
+        color: white;
+    }
+}
+
+header.sticky {
+    background-color: white;
+    padding: 5px 40px;
+    box-shadow: 1px 0px 5px 2px rgb(202, 200, 200);
+    .logo {
+        color: #333;
+    }
+    ul li a {
+    color: #333;
+    }
+    ul li a:hover {
+        color: $main-color;
+        text-decoration-color: $main-color;
+        text-decoration-line: underline;
+    }
+    button#navbar--menu {
+        color: #333;
+    }
+}
+
+
+/* Banner Section */
+#home {
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+/* About Section */
+#about {
+    padding-top: 80px;
+}
+
+/* Function Section */
+#function a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+
+
+/* Button trở lên đầu trang */
+.back-to-top {
+    position: fixed;
+    background-color: grey;
+    top: auto;
+    left: auto;
+    right: 15px;
+    bottom: 15px;
+    font-size: 25px;
+    opacity: 0.5;
+    z-index: 9999;
+    cursor: pointer;
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}
+
+.back-to-top:hover {
+    opacity: 1;
+}
