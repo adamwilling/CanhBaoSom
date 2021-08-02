@@ -29,14 +29,15 @@ $main-color: #2b59b2;
 .carousel-caption {
     padding-bottom: 12rem;
     > h3 {
-        font-size: 3rem;
+        font-size: 2rem;
         font-weight: 500;
         text-transform: uppercase;
     }
     > p {
-        font-size: 25px; font-weight: 300;
+        font-size: 20px; font-weight: 300;
     }
     > .mouse-icon {
+        padding-top: 10px;
         img {
             max-width: 32px;
             max-height: 32px;   
