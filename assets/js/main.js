@@ -8,3 +8,6 @@ window.addEventListener("scroll", () => {
 
 // Khởi tạo danh sách users
 let users_state = []
+if (JSON.parse(localStorage.getItem("users")) == null) {
+    window.localStorage.setItem("users","[]")
+}

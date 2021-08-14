@@ -804,7 +804,8 @@
                 "",
                 ""
             ]
-            users_state.forEach((user) => {
+            if (users_state.length > 0) {
+                users_state.forEach((user) => {
                 if (user.email != EmailLogin) {
                     MessagesLogin[0] = "Email không tồn tại!"
                 } else if (user.password != PasswordLogin) {
@@ -822,6 +823,10 @@
                     }, 3000)
                 }
             })
+            } else {
+                MessagesLoginElement[0].innerHTML = `<span style="color: red; font-size: 0.8rem">Email không tồn tại!</span>`
+            }
+            
         }
 
         // Register
@@ -882,7 +887,7 @@
                 }, 3000)
                 setTimeout(() => {
                     window.location = "#login"
-                }, 3100)
+                }, 3000)
             }
         }
     </script>
