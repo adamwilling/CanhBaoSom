@@ -781,8 +781,8 @@
     <script src="./assets/js/main.js"></script>
     <script>
         window.onload = () => {
-            isLogin = localStorage.getItem("isLogin")
-            if (isLogin != null) {
+            userLogin = localStorage.getItem("userLogin")
+            if (userLogin != null) {
                 window.location = "./app"
             }
             users_state = JSON.parse(localStorage.getItem("users"))
@@ -815,7 +815,8 @@
                     MessagesLoginElement[index].innerHTML = `<span style="color: red; font-size: 0.8rem">${message}</span>`
                 })
                 if (MessagesLogin.every(message => message == "")) {
-                    localStorage.setItem("isLogin", JSON.stringify(EmailLogin))
+                    userLogin = users_state.find(user => EmailLogin = user.email)
+                    localStorage.setItem("userLogin", JSON.stringify(userLogin))
                     document.querySelector("#message-login-success").classList.replace("d-none", "d-flex")
                     setTimeout(() => {
                         window.location = "./app"

@@ -175,7 +175,7 @@
 }
 body {
     margin: 0;
-    font-family: var(--bs-font-sans-serif);
+    font-family: "Georama", sans-serif;
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
@@ -16791,7 +16791,7 @@ a {
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
-    font-family: Font Awesome\5 Free;
+    font-family: Font awesome\5 Free;
     font-style: normal;
     font-weight: 400;
     font-display: block;
@@ -16807,7 +16807,7 @@ a {
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
-    font-family: Font Awesome\5 Free;
+    font-family: Font awesome\5 Free;
     font-style: normal;
     font-weight: 900;
     font-display: block;
@@ -16819,7 +16819,7 @@ a {
 .fa,
 .far,
 .fas {
-    font-family: Font Awesome\5 Free;
+    font-family: Font awesome\5 Free;
 }
 .fa,
 .fas {
