@@ -145,7 +145,18 @@
 						</button>
 					</div>
 				</form>
-
+				<button class="btn btn-warning" id="logout">Đăng Xuất</button>
+				<script>
+					window.onload = () => {
+						if (!localStorage.getItem("userLogin")) {
+							window.location = "../index.html"
+						}
+					}
+					document.querySelector("#logout").onclick = () => {
+						localStorage.removeItem("userLogin")
+						window.location = "../index.html"
+					}
+				</script>
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">
