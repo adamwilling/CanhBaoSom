@@ -32,5 +32,5 @@ let users_default = [
     }
 ]
 if (JSON.parse(localStorage.getItem("users")) == null) {
-    window.localStorage.setItem("users",JSON.stringify(users_default))
+    localStorage.setItem("users",JSON.stringify(users_default))
 }

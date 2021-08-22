@@ -115,6 +115,11 @@
                                     <div class="form-message"></div>
                                 </div>
                                 <div class="form-group mb-4">
+                                    <label for="fullname">Tên đầy đủ của bạn:</label>
+                                    <input type="text" class="form-control" id="fullname" required>
+                                    <div class="form-message"></div>
+                                </div>
+                                <div class="form-group mb-4">
                                     <label for="email">Email:</label>
                                     <input type="email" class="form-control" id="email" required>
                                     <div class="form-message"></div>
@@ -785,8 +790,8 @@
             if (userLogin) {
                 window.location = "./app"
             }
-            users = JSON.parse(localStorage.getItem("users"))
         }
+        let users = JSON.parse(localStorage.getItem("users"))
         // Login
         let EmailLoginElement = document.querySelector("#email--login")
         EmailLoginElement.oninput = () => {
@@ -798,6 +803,7 @@
         }
         const LoginElement = document.querySelector("#login form")
         const MessagesLoginElement = document.querySelectorAll("#login form .form-message")
+        console.log(JSON.parse(localStorage.getItem("users")))
         LoginElement.onsubmit = (event) => {
             event.preventDefault()
             let MessagesLogin = [
@@ -806,34 +812,38 @@
             ]
             if (users.length > 0) {
                 users.forEach((user) => {
-                if (user.email != EmailLogin) {
-                    MessagesLogin[0] = "Email không tồn tại!"
-                } else if (user.password != PasswordLogin) {
-                    MessagesLogin[1] = "Mật khẩu bạn nhập không chính xác"
-                }
-                MessagesLogin.forEach((message, index) => {
-                    MessagesLoginElement[index].innerHTML = `<span style="color: red; font-size: 0.8rem">${message}</span>`
+                    if (user.email != EmailLogin) {
+                        MessagesLogin[0] = "Email không tồn tại!"
+                    } else if (user.password != PasswordLogin) {
+                        MessagesLogin[1] = "Mật khẩu không chính xác"
+                    }
+                    MessagesLogin.forEach((message, index) => {
+                        MessagesLoginElement[index].innerHTML = `<span style="color: red; font-size: 0.8rem">${message}</span>`
+                    })
+                    if (MessagesLogin.every(message => message == "")) {
+                        userLogin = users.find(user => EmailLogin = user.email)
+                        localStorage.setItem("userLogin", JSON.stringify(userLogin))
+                        document.querySelector("#message-login-success").classList.replace("d-none", "d-flex")
+                        setTimeout(() => {
+                            window.location = "./app"
+                            document.querySelector("#message-login-success").classList.replace("d-flex", "d-none")
+                        }, 3000)
+                    }
                 })
-                if (MessagesLogin.every(message => message == "")) {
-                    userLogin = users.find(user => EmailLogin = user.email)
-                    localStorage.setItem("userLogin", JSON.stringify(userLogin))
-                    document.querySelector("#message-login-success").classList.replace("d-none", "d-flex")
-                    setTimeout(() => {
-                        window.location = "./app"
-                        document.querySelector("#message-login-success").classList.replace("d-flex", "d-none")
-                    }, 3000)
-                }
-            })
             } else {
                 MessagesLoginElement[0].innerHTML = `<span style="color: red; font-size: 0.8rem">Email không tồn tại!</span>`
             }
-            
+
         }
 
         // Register
         let CompanyElement = document.querySelector("#company")
         CompanyElement.oninput = () => {
             company = CompanyElement.value
+        }
+        let FullNameElement = document.querySelector("#fullname")
+        FullNameElement.oninput = () => {
+            fullname = FullNameElement.value
         }
         let EmailElement = document.querySelector("#email")
         EmailElement.oninput = () => {
@@ -854,6 +864,7 @@
             let MessagesRegister = [
                 "",
                 "",
+                "",
                 ""
             ]
             if (users) {
@@ -862,10 +873,10 @@
                         MessagesRegister[0] = "Tên công ty này đã có người đăng ký."
                     }
                     if (user.email == email) {
-                        MessagesRegister[1] = "Email này đã có người đăng ký."
+                        MessagesRegister[2] = "Email này đã có người đăng ký."
                     }
                     if (user.phone == phone) {
-                        MessagesRegister[2] = "Số điện thoại này đã có người đăng ký."
+                        MessagesRegister[3] = "Số điện thoại này đã có người đăng ký."
                     }
                 })
             }
@@ -876,11 +887,12 @@
             if (MessagesRegister.every(message => message == "")) {
                 users.push({
                     company,
+                    name: fullname,
                     email,
                     phone,
                     password
                 })
-                window.localStorage.setItem("users", JSON.stringify(users))
+                localStorage.setItem("users", JSON.stringify(users))
                 document.querySelector("#message-register-success").classList.replace("d-none", "d-flex")
                 setTimeout(() => {
                     window.location = "./"
