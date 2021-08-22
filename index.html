@@ -791,7 +791,7 @@
                 window.location = "./app"
             }
         }
-        let users = JSON.parse(localStorage.getItem("users"))
+        let allusers = JSON.parse(localStorage.getItem("users"))
         // Login
         let EmailLoginElement = document.querySelector("#email--login")
         EmailLoginElement.oninput = () => {
@@ -803,7 +803,6 @@
         }
         const LoginElement = document.querySelector("#login form")
         const MessagesLoginElement = document.querySelectorAll("#login form .form-message")
-        console.log(JSON.parse(localStorage.getItem("users")))
         LoginElement.onsubmit = (event) => {
             event.preventDefault()
             let MessagesLogin = [
@@ -811,8 +810,8 @@
                 ""
             ]
             if (users.length > 0) {
-                users.forEach((user) => {
-                    if (user.email != EmailLogin) {
+                allusers.forEach((user) => {
+                    if (user.email !== EmailLogin) {
                         MessagesLogin[0] = "Email không tồn tại!"
                     } else if (user.password != PasswordLogin) {
                         MessagesLogin[1] = "Mật khẩu không chính xác"
