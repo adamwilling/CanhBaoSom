@@ -782,10 +782,10 @@
     <script>
         window.onload = () => {
             userLogin = localStorage.getItem("userLogin")
-            if (userLogin != null) {
+            if (userLogin) {
                 window.location = "./app"
             }
-            users_state = JSON.parse(localStorage.getItem("users"))
+            users = JSON.parse(localStorage.getItem("users"))
         }
         // Login
         let EmailLoginElement = document.querySelector("#email--login")
@@ -804,8 +804,8 @@
                 "",
                 ""
             ]
-            if (users_state.length > 0) {
-                users_state.forEach((user) => {
+            if (users.length > 0) {
+                users.forEach((user) => {
                 if (user.email != EmailLogin) {
                     MessagesLogin[0] = "Email không tồn tại!"
                 } else if (user.password != PasswordLogin) {
@@ -815,7 +815,7 @@
                     MessagesLoginElement[index].innerHTML = `<span style="color: red; font-size: 0.8rem">${message}</span>`
                 })
                 if (MessagesLogin.every(message => message == "")) {
-                    userLogin = users_state.find(user => EmailLogin = user.email)
+                    userLogin = users.find(user => EmailLogin = user.email)
                     localStorage.setItem("userLogin", JSON.stringify(userLogin))
                     document.querySelector("#message-login-success").classList.replace("d-none", "d-flex")
                     setTimeout(() => {
@@ -856,8 +856,8 @@
                 "",
                 ""
             ]
-            if (users_state) {
-                users_state.forEach((user, index) => {
+            if (users) {
+                users.forEach((user, index) => {
                     if (user.company == company) {
                         MessagesRegister[0] = "Tên công ty này đã có người đăng ký."
                     }
@@ -874,13 +874,13 @@
                 MessagesRegisterElement[index].innerHTML = `<span style="color: red; font-size: 0.8rem">${message}</span>`
             })
             if (MessagesRegister.every(message => message == "")) {
-                users_state.push({
+                users.push({
                     company,
                     email,
                     phone,
                     password
                 })
-                window.localStorage.setItem("users", JSON.stringify(users_state))
+                window.localStorage.setItem("users", JSON.stringify(users))
                 document.querySelector("#message-register-success").classList.replace("d-none", "d-flex")
                 setTimeout(() => {
                     window.location = "./"
