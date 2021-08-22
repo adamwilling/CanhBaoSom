@@ -791,7 +791,7 @@
                 window.location = "./app"
             }
         }
-        let allusers = JSON.parse(localStorage.getItem("users"))
+        let users = JSON.parse(localStorage.getItem("users"))
         // Login
         let EmailLoginElement = document.querySelector("#email--login")
         EmailLoginElement.oninput = () => {
@@ -810,7 +810,7 @@
                 ""
             ]
             if (users.length > 0) {
-                allusers.forEach((user) => {
+                users.forEach((user) => {
                     if (user.email !== EmailLogin) {
                         MessagesLogin[0] = "Email không tồn tại!"
                     } else if (user.password != PasswordLogin) {
