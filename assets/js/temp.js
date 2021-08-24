@@ -11,7 +11,7 @@ let users_default = [
     {
         company: "Ký Túc Xá Cỏ May",
         name: "Võ Thành Phú",
-        time: "08/02/2001",
+        date: "08/02/2001",
         email: "thanhphums10@gmail.com",
         phone: "0775074059",
         password: "Abc123456",
@@ -22,7 +22,7 @@ let users_default = [
     {
         company: "Ký Túc Xá Cỏ May",
         name: "Nguyễn Võ Song Toàn",
-        time: "08/02/2001",
+        date: "08/02/2001",
         email: "adamwilling.2002@gmail.com",
         phone: "0369572542",
         password: "Abc123456",
@@ -51,11 +51,8 @@ var users = JSON.parse(localStorage.getItem("users"))
 
 // Xử lý khi Login
 const LoginElement = document.querySelector("#login form")
-
-let MessagesLoginElement = document.querySelectorAll("#login form .form-message")
-
+const MessagesLoginElement = document.querySelectorAll("#login form .form-message")
 let EmailLoginElement = document.querySelector("#email--login")
-
 EmailLoginElement.oninput = () => {
     EmailLogin = EmailLoginElement.value
     userLogin = users.find(user => user.email == EmailLogin)
@@ -65,9 +62,7 @@ EmailLoginElement.oninput = () => {
         MessagesLoginElement[0].innerHTML = ""
     }
 }
-
 let PasswordLoginElement = document.querySelector("#password--login")
-
 PasswordLoginElement.oninput = () => {
     PasswordLogin = PasswordLoginElement.value
     if (userLogin && userLogin.password != PasswordLogin) {
@@ -76,12 +71,9 @@ PasswordLoginElement.oninput = () => {
         MessagesLoginElement[1].innerHTML = ""
     }
 }
-
-MessagesLoginElement = Array.prototype.slice.call(MessagesLoginElement)  // Chuyển đổi từ Nodelist sang Array
-
 LoginElement.onsubmit = (event) => {
     event.preventDefault()
-    if (MessagesLoginElement.every(message => message.innerHTML == "")) {
+    if (MessagesLoginElement[0].innerHTML == "" && MessagesLoginElement[1].innerHTML == "") {
         localStorage.setItem("userLogin", JSON.stringify(userLogin))
         document.querySelector("#message-login-success").classList.replace("d-none", "d-flex")
         setTimeout(() => {
@@ -93,103 +85,69 @@ LoginElement.onsubmit = (event) => {
 
 
 // Xử lý khi Register
-const RegisterElement = document.querySelector("#register form")
-
-let MessagesRegisterElement = document.querySelectorAll("#register form .form-message")
-
 let CompanyElement = document.querySelector("#company")
-
 CompanyElement.oninput = () => {
     company = CompanyElement.value
-    checkCompany = users.some(user => user.company == company)
-    if (checkCompany) {
-        MessagesRegisterElement[0].innerHTML = `<span style="color: red; font-size: 0.8rem">Tên công ty đã tồn tại.</span>`
-    } else {
-        MessagesRegisterElement[0].innerHTML = ""
-    }
 }
-
 let FullNameElement = document.querySelector("#fullname")
-
 FullNameElement.oninput = () => {
     fullname = FullNameElement.value
 }
-
 let EmailElement = document.querySelector("#email")
-
 EmailElement.oninput = () => {
     email = EmailElement.value
-    checkEmail = users.some(user => user.email == email)
-    if (checkEmail) {
-        MessagesRegisterElement[1].innerHTML = `<span style="color: red; font-size: 0.8rem">Email này đã được sử dụng.</span>`
-    } else {
-        MessagesRegisterElement[1].innerHTML = ""
-    }
 }
-
 let PhoneElement = document.querySelector("#phone")
-
 PhoneElement.oninput = () => {
     phone = PhoneElement.value
-    checkPhone = users.some(user => user.phone == phone)
-    if (checkPhone) {
-        MessagesRegisterElement[2].innerHTML = `<span style="color: red; font-size: 0.8rem">Số điện thoại này đã được sử dụng.</span>`
-    } else {
-        MessagesRegisterElement[2].innerHTML = ""
-    }
 }
-
 let PasswordElement = document.querySelector("#password")
-
 PasswordElement.oninput = () => {
     password = PasswordElement.value
 }
-
-let RePasswordElement = document.querySelector("#repassword")
-
-RePasswordElement.oninput = () => {
-    repassword = RePasswordElement.value
-    if (repassword != password) {
-        MessagesRegisterElement[3].innerHTML = `<span style="color: red; font-size: 0.8rem">Mật khẩu nhập lại không chính xác.</span>`
-    } else {
-        MessagesRegisterElement[3].innerHTML = ""
-    }
-}
-
-MessagesRegisterElement = Array.prototype.slice.call(MessagesRegisterElement)  // Chuyển đổi từ Nodelist sang Array
-
-getTimeNow = () => {
-    let currentdate = new Date()
-    let datetime = currentdate.getHours() + ":"
-        + ((currentdate.getMinutes() <= 9) ? "0" + currentdate.getMinutes() : currentdate.getMinutes()) + ":"
-        + ((currentdate.getSeconds() <= 9) ? "0" + currentdate.getSeconds() : currentdate.getSeconds()) + " ngày "
-        + currentdate.getDate() + "/"
-        + (currentdate.getMonth() + 1) + "/"
-        + currentdate.getFullYear()
-    return datetime
-}
+const RegisterElement = document.querySelector("#register form")
+const MessagesRegisterElement = document.querySelectorAll("#register form .form-message")
 RegisterElement.onsubmit = (event) => {
     event.preventDefault()
-    if (MessagesRegisterElement.every(message => message.innerHTML == "")) {
+    let MessagesRegister = [
+        "",
+        "",
+        "",
+        ""
+    ]
+    if (users) {
+        users.forEach((user) => {
+            if (user.company == company) {
+                MessagesRegister[0] = "Tên công ty này đã có người đăng ký."
+            }
+            if (user.email == email) {
+                MessagesRegister[2] = "Email này đã có người đăng ký."
+            }
+            if (user.phone == phone) {
+                MessagesRegister[3] = "Số điện thoại này đã có người đăng ký."
+            }
+        })
+    }
+
+    MessagesRegister.forEach((message, index) => {
+        MessagesRegisterElement[index].innerHTML = `<span style="color: red; font-size: 0.8rem">${message}</span>`
+    })
+    if (MessagesRegister.every(message => message == "")) {
         users.push({
             company,
             name: fullname,
-            time: getTimeNow(),
             email,
             phone,
-            password,
-            department: "Hội đồng quản trị",
-            position: "Chủ tịch",
-            set: "admin"
+            password
         })
         localStorage.setItem("users", JSON.stringify(users))
-        localStorage.setItem("userLogin", JSON.stringify(users[users.length-1]))
         document.querySelector("#message-register-success").classList.replace("d-none", "d-flex")
         setTimeout(() => {
+            window.location = "./"
             document.querySelector("#message-register-success").classList.replace("d-flex", "d-none")
         }, 3000)
         setTimeout(() => {
-            window.location = "./app"
+            window.location = "./"
         }, 3000)
     }
 }
